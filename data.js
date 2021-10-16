@@ -18,10 +18,9 @@ $(document).ready(function() {
 
         d.forEach((element, index) => {
             if (index != 216) {
-                if (element["Country_text"] != "World" &&
-                    element["Country_text"] != "Diamond Princess" && element["Country_text"] != "MS Zaandam" &&
-                    !element["Country_text"].includes("Islands") && !element["Country_text"].includes("St") &&
-                    !element["Country_text"].includes("Saint")) {
+                console.log(element["Country_text"])
+                if (element["Country_text"] != "World" && countryById[element["Country_text"]] ) {
+                        
                     data.push({
                         id: countryById[element["Country_text"]].code,
                         new_cases: reformat(element["New Cases_text"]),
@@ -120,7 +119,7 @@ function fillNewCases(newData, totale) {
     let ul = createUl();
     ul.appendChild(createFirstLi("New Cases", "danger", "bars", totale));
     newData.forEach(d => {
-        ul.appendChild(createLi("danger", d.id, d.country, d.new_cases, "+"));
+        d.new_cases >0? ul.appendChild(createLi("danger", d.id, d.country, d.new_cases, "+")) : [];
     });
     side.appendChild(ul);
 }
@@ -131,3 +130,4 @@ function hideSpinners() {
         s.style.display = "none";
     })
 }
+
